@@ -34,6 +34,15 @@
       excerpt: `Successfully managing your finances is crucial to enjoying a stress-free life in Spain. This chapter provides practical guidance on how to budget for your new life, manage your expenses, and navigate Spain’s financial systems. We’ll start by discussing the cost of living in different regions of Spain, from the more affordable countryside to the pricier urban centers. You’ll learn how to create a realistic budget that covers essentials such as housing, utilities, groceries, and healthcare, while also allowing for the enjoyment of Spain’s culinary delights and cultural activities. We’ll also delve into the Spanish banking system, offering tips on how to open a bank account, choose the right financial products, and understand local banking fees. Taxation is another key area we’ll cover, with explanations of how to file taxes as a resident or non-resident, and the implications of Spain’s tax treaties with other countries. Whether you’re planning to retire, work, or invest in Spain, this chapter will equip you with the financial knowledge to make the most of your resources and enjoy a comfortable life in your new home.`,
     },
   ];
+
+  let selectedChapterNumber = $state(1);
+  let selectedChapter = $derived(
+    chapters.find(chapter => chapter.number === selectedChapterNumber)
+);
+
+  function selectChapter(chapter){
+    selectedChapterNumber = chapter.number
+  }
 </script>
 
 <section class="chapter-preview default-margin">
@@ -44,7 +53,12 @@
                 
 
             <li>
-                <button class="chapter-title selected-chapter-title" aria-controls={`chapter-info-${chapter.number}`} aria-expanded="true">
+                <button class="chapter-title" 
+                class:selected-chapter-title={selectedChapterNumber === chapter.number} 
+                aria-controls={`chapter-info-${chapter.number}`} 
+                aria-expanded={selectedChapterNumber === chapter.number}
+                onclick={() => selectChapter(chapter)}
+                >
                     <h3>Chapter {chapter.number}: {chapter.title}</h3>
                 </button>
             </li>
@@ -53,19 +67,10 @@
         </ul>
         <div class="chapter-info">
             <h3 class="chapter-strapline italic mb-s">
-                Understanding Visas, Residency, and Legal Essentials
+                {selectedChapter.strapline}
             </h3>
         <p>
-            Moving to Spain involves navigating a labyrinth of bureaucratic
-            processes that can feel overwhelming at first. This chapter breaks down
-            the essential steps required to secure your visa, establish residency,
-            and handle other legal formalities. Whether you’re planning a short-term
-            stay or seeking permanent residency, understanding Spain’s legal
-            framework is crucial. We’ll explore the different types of visas
-            available, from student to work visas, and provide tips on how to
-            streamline your application process. Additionally, this chapter covers
-            essential documentation, such as obtaining a Número de Identidad de
-            Extranjero (NIE), which is your key to unlocking many services in Spain.
+            {selectedChapter.excerpt}
         </p>
         </div>
     </div>
